@@ -26,6 +26,29 @@ def generate_4x4_sudoku():
     
     return puzzle_copy
 
+def generate_4x4_pair():
+    """
+    Generate a random 4x4 sudoku puzzle and its solution.
+    
+    Returns:
+        tuple: (puzzle, solution)
+    """
+    puzzle = [[0] * 4 for _ in range(4)]
+    if not _fill_puzzle(puzzle):
+        return generate_4x4_pair()
+    
+    solution = [row[:] for row in puzzle]
+    
+    puzzle_copy = [row[:] for row in puzzle]
+    cells = [(i, j) for i in range(4) for j in range(4)]
+    random.shuffle(cells)
+    
+    # Remove approximately half the numbers (8 cells)
+    for i, j in cells[:8]:
+        puzzle_copy[i][j] = 0
+        
+    return puzzle_copy, solution
+
 
 def _fill_puzzle(puzzle):
     """
